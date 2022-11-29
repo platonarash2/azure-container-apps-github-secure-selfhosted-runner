@@ -1,0 +1,41 @@
+FROM ubuntu:18.04
+
+ENV RUNNER_VERSION=2.299.1
+
+RUN useradd -m actions
+
+
+RUN apt-get -yqq update && apt-get install -yqq curl jq wget
+RUN curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+
+RUN \
+  LABEL="$(curl -s -X GET 'https://api.github.com/repos/actions/runner/releases/latest' | jq -r '.tag_name')" \
+  RUNNER_VERSION="$(echo ${latest_version_label:1})" \
+  cd /home/actions && mkdir actions-runner && cd actions-runner \
+    && wget https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
+    && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz
+
+
+WORKDIR /home/actions/actions-runner
+
+RUN chown -R actions ~actions && /home/actions/actions-runner/bin/installdependencies.sh
+
+COPY ./entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
+ENV TOKEN=not-set
+ADD . $TOKEN
+
+ENV NAME=not-set
+ADD . $NAME
+
+
+ENV GITHUB=not-set
+ADD . $GITHUB
+
+USER actions
+
+ENTRYPOINT /home/actions/actions-runner/entrypoint.sh -t ${TOKEN} -n ${NAME} -u ${GITHUB}
+
+
+

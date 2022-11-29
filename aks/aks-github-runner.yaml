@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-runner-deployment
+  labels:
+    app: github-self-hosted-runner
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: github-self-hosted-runner
+  template:
+    metadata:
+      labels:
+        app: github-self-hosted-runner
+    spec:
+      containers:      
+        - name: github-self-hosted-runner
+          image: acrgithubrunner.azurecr.io/mygithubrunner:1.0  # <---- CHANGE THIS
+          imagePullPolicy: Always 
+          env:
+            - name: NAME
+              value: "aks-github-self-hosted-runner"  
+                
+            - name: GITHUB
+              value: "https://github.com/platonarash2/azure-secure-github-runner" # <---- CHANGE THIS
+
+            - name: TOKEN
+              value: "ARSGY6PX2CVPKTASFVH2V63DQYVHC" # <---- CHANGE THIS
+          
+     
