@@ -7,7 +7,7 @@ Azure Devops has this feature in the roadmap but it is not currently avaiable (2
 ***In this tutorial we are going to setup AKS and Azure Container Apps, Azure Key Vault with a secret and let a Github Self hosted runner in AKS and Azure Container Apps able to read the secret via the User Managed Identity.***
 
 ## Problem statement
-This tutorial solves the problem of making Github be able to deploy to Azure **without** using any long lived pre-shared keys like passwords or certificates (e.g. AAD service principals) in a **multiple teams** environment utilizing same infrastructure but with **separation of access**. 
+This tutorial solves the problem of making GitHub able to deploy to Azure **without** using any long lived pre-shared keys like passwords or certificates (e.g. AAD service principals) in a **multiple teams** environment utilizing same infrastructure but with **separation of access**. 
 
 It is possible to utilize Azure Manaed Identities for deployments with utilzing a VM or VM Scale Set that has an associated Managed Identity, https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-portal-windows-vm. But this solution would require you to have **50 VMs/VMSS for 50 seperate teams** if you want to separate access to Azure for different teams. Hence, different teams utilizing the same VM/VMSS accociated with one MSI would be shared for all teams and potentially create a security concern for your organization.    
 
