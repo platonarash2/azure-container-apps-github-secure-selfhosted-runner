@@ -124,7 +124,7 @@ Check in your Azure Container Registry, your image should be there now.
                       
     ```
 
-    This will register the Azure Container App with Github and start the runner. The environment variables are passed into the container at runtime rather then build time. You could enhance the security even further and place the environment variables in Azure Key Vault and create the container app with environment picked up from Azure Key Vault, the keyword would be using *"SECRETENV=secretref:tokensecret"* for example. More information about Azure Container Apps and Key Vault integration exxamples here: https://learn.microsoft.com/en-us/cli/azure/containerapp?view=azure-cli-latest#az-containerapp-create-examples  
+    This will register the Azure Container App with Github and start the runner. The environment variables are passed into the container at runtime rather than build time. You could enhance the security even further and place the environment variables in Azure Key Vault and create the container app with environment picked up from Azure Key Vault, the keyword would be using *"SECRETENV=secretref:tokensecret"* for example. More information about Azure Container Apps and Key Vault integration exxamples here: https://learn.microsoft.com/en-us/cli/azure/containerapp?view=azure-cli-latest#az-containerapp-create-examples  
 
 10. Go to the Azure Portal and into your resource group and select the Azure Container App that you just created. Select the *Log Stream* seen below and make sure the Container App is connected and registered to Github.
 ![ACR](./img/runner3.png)
